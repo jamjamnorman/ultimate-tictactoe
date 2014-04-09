@@ -61,23 +61,20 @@ def handle_click(mouse_x, mouse_y):
         _y = (mouse_y - board[1]*200 - 25) / 50
     else:
         return False
-    print main_board.finished
+
     x, y = board
 
     return main_board.handle_input(x, y, _x, _y, player_turn)
 
 draw()
+
 while game_loop:
     for event in pygame.event.get():
         if event.type is QUIT:
             game_loop = False
         if event.type is MOUSEBUTTONUP and not main_board.finished:
-            response = handle_click(*event.pos)
-            print response
-            if response:
-                player_turn = 2 if player_turn == 1 else 1
+            if handle_click(*event.pos):
                 if main_board.check_complete():
-                    print "The end."
+                    print "The end. {player} won!".format(["Crosses", "Noughts"][player_turn - 1])
+                player_turn = 2 if player_turn == 1 else 1
                 draw()
-        elif main_board.finished:
-            print "main board finished."

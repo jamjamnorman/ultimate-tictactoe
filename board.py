@@ -20,20 +20,19 @@ class Board:
 
         if self.finished:
             return True
+        if self.grid[1][1]:
+            if self.grid[0][0] == self.grid[1][1] == self.grid[2][2] or self.grid[1][1] == self.grid[0][2] == self.grid[2][0]:
+                self.winner = self.grid[1][1]
+                self.color = color[self.winner]
+                self.finished = True
 
-        if self.grid[0][0] == self.grid[1][1] == self.grid[2][2] and self.grid[1][1]:
-            self.winner = self.grid[1][1]
-            self.color = color[self.winner]
-            self.finished = True
-        else:
-            for i in xrange(3):
-                if self.grid[i][i] == 0:
-                    continue
-                elif self.grid[1][i] == self.grid[2][i] == self.grid[0][i] or self.grid[i][1] == self.grid[i][2] == self.grid[i][0]:
-                    self.winner = self.grid[i][i]
-                    print color[self.winner]
-                    self.color = color[self.winner]
-                    self.finished = True
+        for i in range(3):
+            if not self.grid[i][i]:
+                continue
+            elif self.grid[1][i] == self.grid[2][i] == self.grid[0][i] or self.grid[i][1] == self.grid[i][2] == self.grid[i][0]:
+                self.winner = self.grid[i][i]
+                self.color = color[self.winner]
+                self.finished = True
         
         if reduce(operator.mul, self.grid[1], 1) and reduce(operator.mul, self.grid[2], 1) and reduce(operator.mul, self.grid[0], 1):
             self.finished = True
@@ -57,9 +56,10 @@ class SuperBoard(Board):
                 if not self.grid[_x][_y].check_complete():
                     self.forced_grid = (_x, _y)
                     self.grid[_x][_y].color = "green"
+                else:
+                    self.forced_grid = None
                 return True
             else:
-                self.forced_grid = None
                 return False
         else:
             return False
@@ -76,9 +76,4 @@ class SuperBoard(Board):
             elif self.grid[1][i].winner == self.grid[2][i].winner == self.grid[0][i].winner or self.grid[i][1].winner == self.grid[i][2].winner == self.grid[i][0].winner:
                 self.finished = True
                 return self.grid[i][i].winner
-        """
-        if reduce(operator.mul, self.grid[1], 1) and reduce(operator.mul, self.grid[0], 1) and reduce(operator.mul, self.grid[0], 1):
-            self.finished = True    
-            return 3
-        """    
         return False
