@@ -24,13 +24,14 @@ class Board:
         if self.grid[0][0] == self.grid[1][1] == self.grid[2][2] and self.grid[1][1]:
             self.winner = self.grid[1][1]
             self.color = color[self.winner]
-            self.finished = True 
+            self.finished = True
         else:
             for i in xrange(3):
                 if self.grid[i][i] == 0:
                     continue
                 elif self.grid[1][i] == self.grid[2][i] == self.grid[0][i] or self.grid[i][1] == self.grid[i][2] == self.grid[i][0]:
-                    self.winner = self.grid[1][1]
+                    self.winner = self.grid[i][i]
+                    print color[self.winner]
                     self.color = color[self.winner]
                     self.finished = True
         
@@ -51,11 +52,14 @@ class SuperBoard(Board):
     def handle_input(self, x, y, _x, _y, player):
         if not self.forced_grid or self.forced_grid == (x, y):
             if self.grid[x][y].handle_input(_x, _y, player):
+                if self.grid[x][y].color == "green":
+                    self.grid[x][y].color = "white"
                 if not self.grid[_x][_y].check_complete():
                     self.forced_grid = (_x, _y)
                     self.grid[_x][_y].color = "green"
                 return True
             else:
+                self.forced_grid = None
                 return False
         else:
             return False
@@ -67,7 +71,7 @@ class SuperBoard(Board):
                 return self.grid[1][1].winner
 
         for i in range(3):
-            if self.grid[i][i].winner == 0:
+            if not self.grid[i][i].winner:
                 continue
             elif self.grid[1][i].winner == self.grid[2][i].winner == self.grid[0][i].winner or self.grid[i][1].winner == self.grid[i][2].winner == self.grid[i][0].winner:
                 self.finished = True
