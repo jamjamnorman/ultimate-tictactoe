@@ -22,7 +22,10 @@ pygame.display.set_caption("Ultimate Tic Tac Toe")
 main_board = board.SuperBoard()
 
 def draw():
-    screen.fill(pygame.Color(255, 255, 255))
+    if main_board.finished:
+    	screen.fill(pygame.Color(200, 200, 200))
+    else:
+    	screen.fill(pygame.Color(255, 255, 255))
 
     for x in [0, 1, 2]:
         for y in [0, 1, 2]:
