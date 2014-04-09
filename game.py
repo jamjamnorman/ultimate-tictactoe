@@ -76,3 +76,5 @@ while game_loop:
                 if main_board.check_complete():
                     print "The end."
                 draw()
+        elif main_board.finished:
+            print "main board finished."

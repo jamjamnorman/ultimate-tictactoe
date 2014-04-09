@@ -62,10 +62,11 @@ class SuperBoard(Board):
     def check_complete(self):
         if self.grid[1][1].winner == self.grid[2][2].winner == self.grid[0][0].winner and self.grid[1][1].winner:
             self.finished = True
+            print "diag"
             return self.grid[1][1].winner
         else:
             for i in xrange(3):
-                if self.grid[i][i].winner == 0:
+                if not self.grid[i][i].winner:
                     continue
                 elif self.grid[1][i].winner == self.grid[2][i].winner == self.grid[0][i].winner or self.grid[i][1].winner == self.grid[i][2].winner == self.grid[i][0].winner:
                     self.finished = True
