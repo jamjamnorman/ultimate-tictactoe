@@ -23,9 +23,15 @@ main_board = board.SuperBoard()
 
 def draw():
     if main_board.finished:
+<<<<<<< HEAD
     	screen.fill(color["white"])
     else:
     	screen.fill(color["gray"])
+=======
+        screen.fill(pygame.Color(200, 200, 200))
+    else:
+        screen.fill(pygame.Color(255, 255, 255))
+>>>>>>> 7b21d4612bb415fa05a8b02a1dcfcbea6aa2bbfc
 
     for x in [0, 1, 2]:
         for y in [0, 1, 2]:
