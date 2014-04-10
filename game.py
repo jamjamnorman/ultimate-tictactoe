@@ -75,6 +75,6 @@ while game_loop:
         if event.type is MOUSEBUTTONUP and not main_board.finished:
             if handle_click(*event.pos):
                 if main_board.check_complete():
-                    print "The end. {player} won!".format(["Crosses", "Noughts"][player_turn - 1])
+                    print "The end. {} won!".format(["Crosses", "Noughts"][player_turn - 1])
                 player_turn = 2 if player_turn == 1 else 1
                 draw()
