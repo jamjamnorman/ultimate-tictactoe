@@ -23,9 +23,9 @@ main_board = board.SuperBoard()
 
 def draw():
     if main_board.finished:
-    	screen.fill(pygame.Color(200, 200, 200))
+    	screen.fill(color["white"])
     else:
-    	screen.fill(pygame.Color(255, 255, 255))
+    	screen.fill(color["gray"])
 
     for x in [0, 1, 2]:
         for y in [0, 1, 2]:
@@ -75,6 +75,6 @@ while game_loop:
         if event.type is MOUSEBUTTONUP and not main_board.finished:
             if handle_click(*event.pos):
                 if main_board.check_complete():
-                    print "The end. {player} won!".format(["Crosses", "Noughts"][player_turn - 1])
+                    print "The end. {} won!".format(["Crosses", "Noughts"][player_turn - 1])
                 player_turn = 2 if player_turn == 1 else 1
                 draw()
